@@ -64,8 +64,12 @@ public class RoomManager {
 		
 		
 		// the nulls should be replaced with directions or what room is where but I need to define this for each room
-		Room[] livingRoomExits = {bedroom, kitchen, null, null};
+		
+		Room[] livingRoomExits = {rooms[1], rooms[2]};
 		livingRoom.setExits(livingRoomExits);
+		
+		Room[] kitchenExits = {rooms[0], rooms[2]};
+		kitchen.setExits(kitchenExits);
 		// need to set the other rooms here somehow.
 		//can probably just make one of these for every room and make sure I keep track of where you can back track
 		
@@ -92,4 +96,6 @@ public class RoomManager {
 	public void setRooms(Room[] rooms) {
 		this.rooms = rooms;
 	}
+
+	
 }
