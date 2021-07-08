@@ -20,7 +20,7 @@ public class Room extends Fixture {
 	 */
 	public Room(String name, String shortDescription, String longDescription) {
 		super(name, shortDescription, longDescription); //what is this class calling to?
-		//this.exits = new Room[?]; //size is my choice based on rooms
+		//this.exits = new Room[kitchen, bathroom]; //size is my choice based on rooms
 	}
 	
 	public Room exits;

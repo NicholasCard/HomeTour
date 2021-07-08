@@ -20,6 +20,7 @@ public abstract class Fixture {
 //is this correct ?
 	public Fixture(String name, String shortDescription, String longDescription) {
 		// TODO Auto-generated constructor stub
+		System.out.println(name + "\n" + shortDescription + "\n" + longDescription);
 	}
 	
 	
