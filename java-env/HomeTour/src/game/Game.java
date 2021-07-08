@@ -17,28 +17,40 @@ public class Game {
 	 * -parse the input
 	 */
 	
+	private static RoomManager roomManager = new RoomManager(3);
+	
 public static void main(String[] args) {
 	
-	RoomManager roomManager = new RoomManager();
+	
 	roomManager.init();
+	
+	System.out.println("this is just calling the starting room " + roomManager.getStartingRoom().getName());
 	
 	Player player = new Player();
 	
-	player.currentRoom = roomManager.startingRoom;
+	player.setCurrentRoom(roomManager.getStartingRoom());
+	System.out.println(player.getCurrentRoom().getName());
+	
+	
 	//player is currently not passing anything to the parse method 
 	//do i need to pass the current room and make an object out of that?
 	
 	//need to figure out how to let the printRoom know which room is the current room 
 	
 	//the player keeps track of the current room so I need a way so translate that 
-		parse(collectInput(), player);
+		
+	
+	parse(collectInput(), player);
 	}
 
 	private static void printRoom(Player player) {
 		//method that will print the prompt to the console for the players 
 		//current room
 		
-		System.out.println("this is the room you are in" + player.currentRoom);
+		
+		// i have to add SYSO for each individual part of the object because println doesnt just print the whole object 
+		System.out.println("this is the room you are in " + player.getCurrentRoom().getName());
+		
 	}
 	
 	private static /*String[]*/ String collectInput() {
@@ -73,6 +85,9 @@ public static void main(String[] args) {
 			
 			//still have to figure out how to make the player an object that can change the starting room
 			System.out.println("hey this is the parse method");
+			player.setCurrentRoom(roomManager.getRooms()[1]);
+			printRoom(player);
+			
 		}
 		
 	}

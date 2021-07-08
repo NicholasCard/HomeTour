@@ -18,18 +18,36 @@ public class Room extends Fixture {
 	 * 
 	 * 
 	 */
+	
+	private Room[] exits = new Room[4];
+	
+	private Fixture[] items;
+	
+	
 	public Room(String name, String shortDescription, String longDescription) {
-		super(name, shortDescription, longDescription); //what is this class calling to?
-		//this.exits = new Room[kitchen, bathroom]; //size is my choice based on rooms
+		super(name, shortDescription, longDescription);
+		
+		
+		//this seems to be more of the room and what can be done while in it not where the arrays are stored
+		//it is not getting all the rooms i need
 	}
 	
-	public Room exits;
+	public Room[] getExits() {
+		return this.exits;
+	}
 	
-	//public  Room[] getExits() {
-		
-	//}
 	
-	//public Room getExit(String direction) {
-		
-	//}
+	public Room getExit(String direction) { 
+		// TODO: Implement Method
+		return null;
+	}
+	
+	// setter for exits
+	public void setExits(Room[] exits) {
+		this.exits = exits;
+	}
+
+	
+	
+	
 }
