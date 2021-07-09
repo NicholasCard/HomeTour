@@ -2,6 +2,7 @@ package game;
 
 import java.util.Scanner;
 
+import fixtures.Fixture;
 import fixtures.Room;
 import game.Player;
 import game.RoomManager;
@@ -27,13 +28,22 @@ public static void main(String[] args) {
 	
 	roomManager.init();
 	
+	
+	
 	System.out.println("this is just calling the starting room " + roomManager.getStartingRoom().getName());
 	
 	Player player = new Player();
 	
+	
+	
 	player.setCurrentRoom(roomManager.getStartingRoom());
 	System.out.println(player.getCurrentRoom().getName());
 	
+	
+	
+	printRoomExits(player);
+	printRoom(player);
+	printInteractableObjects(player.getCurrentRoom());
 	
 	//player is currently not passing anything to the parse method 
 	//do i need to pass the current room and make an object out of that?
@@ -46,19 +56,29 @@ public static void main(String[] args) {
 	parse(collectInput(), player);
 	}
 
-
 /*
- * This method is used to print a list of all exits connected to
- * a Room. This method is based on the arbitrary way that the 
- * connections to rooms are established. In the case of the example
- * the Room class has a 'getExit' method which can be used to 
- * arbitrarily determine a string associated with an exit (i.e.
- * North/South/East/West), and we print this information using
- * this method
+ * might be useful to make a get room method that already does the checks and returns the room
  */
+
+
+public static void printInteractableObjects(Room room) {
+	//might have to check here with a compare and match system 
+	for (Fixture interactable: room.getItems()) {
+		
+        System.out.println("These are the Items: " + interactable.getName());
+        
+        //need to figure out how to get a list of the interactables in a room as data so i can compare 
+        //could also translate that to the getRooms() method to make a better method for that 
+        //I just need to be able to select one for now until I fine tune it
+        //String[] fixtures = interactable.getName();
+     }
+}
+
+
 public static void printRoomExits(Player player) {
 	// TODO: Implement Method
 	//just threw around the arbitrarily word around and doesnt give much description
+	
 	
 	
 	
@@ -94,7 +114,7 @@ public static void printRoomExits(Player player) {
 		
 	}
 	
-	private static /*String[]*/ String collectInput() {
+	private static String[]  collectInput() {
 		/*method that uses a scanner like object to collect console input 
 		 * from the player and then divides the input into multiple parts
 		 * -An Action
@@ -111,16 +131,26 @@ public static void printRoomExits(Player player) {
 		
 		
 		
+		
 		//need to implement a method that prints out the exits for that particular room 
 		System.out.println("these are the current options for exits " );
+		
+		//figure this out in a bit
+		//printRoomExits(player);
 		String command = scanner.nextLine();
+		
+		String[] commands = command.split(" ");
+
+		for (String c : commands)
+		  System.out.println(c);
+		
 		System.out.println("you typed " + command);
 		//this needs to be a String[] but just to test
-		return command;
+		return commands;
 		
 	} 
 		
-		private static void parse(/*String[]*/ String command, Player player) {
+		private static void parse(String[] commands, Player player) {
 			/*
 			 * method that will take the output of collectInput() method, and player object
 			 * the first index passed in String[] should be the action so you can
@@ -130,17 +160,68 @@ public static void printRoomExits(Player player) {
 			
 			//the parameters also needs to be a String[] but im just testing how these functions work for now
 			
+			String action = commands[0].toUpperCase().intern();
+			
+			String details = null;
+			
+			if (commands.length > 1) {
+				details = commands[1].toUpperCase().intern();
+			}
+
+			if (action == "GO" | action == "MOVE") {
+				// What to do when the 'action' specified is to move
+				
+				//maybe implement a case here 
+				switch(details) {
+				case "LEFT":
+					System.out.println("You went Left");
+					player.setCurrentRoom(roomManager.getRooms()[1]);
+					System.out.println(player.getCurrentRoom().getName());
+					break;
+				case "RIGHT":
+					System.out.println("You went Right");
+					player.setCurrentRoom(roomManager.getRooms()[2]);
+					System.out.println(player.getCurrentRoom().getName());
+					break;
+				}
+				
+			} else if (action == "INTERACT") {
+				// What to do when the 'action' specified is to interact
+				//need to implement interactivity but after i get this stuff done
+				
+				//part of my attempt to start adding interactivity
+				//idea so far is to come up with an algorithm that just loops through and checks each time if the strings match
+				//doesnt need to be crazy efficient itll loop through like 5 items 
+				
+				//String[] stuff = printInteractableObjects(player.getCurrentRoom());
+				switch(details) {
+				case "FRIDGE":
+					//this should be stored in the interactables like description of what action is taken when selecting it
+					//could get more specific with what actions you can take but thats for later
+					System.out.println("You open the fridge and see that there are some leftovers that might be a little too old");
+					break;
+				}
+			} else if (action == "QUIT") {
+				//just a substitute for now 
+				System.exit(0);
+			}
+			
+			
+			
+			//the stuff below needs to be refactored somewhere else 
+			
 			//still have to figure out how to make the player an object that can change the starting room
 			System.out.println("hey this is the parse method");
 			
 			
-			System.out.println("this is the printRoomExits Attempt: ");
+			
 			
 			//System.out.println(player.getCurrentRoom().getExits()[1].getName());
 			
-			player.setCurrentRoom(roomManager.getRooms()[1]);
-			printRoomExits(player);
-			printRoom(player);
+			
+			//this needs to be its own method
+			//player.setCurrentRoom(roomManager.getRooms()[1]);
+			
 			
 		}
 		

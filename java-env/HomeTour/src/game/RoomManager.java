@@ -1,5 +1,9 @@
 package game;
 
+import fixtures.Appliances;
+import fixtures.Electronics;
+import fixtures.Furniture;
+
 import fixtures.Room;
 
 public class RoomManager {
@@ -70,9 +74,30 @@ public class RoomManager {
 		
 		Room[] kitchenExits = {rooms[0], rooms[2]};
 		kitchen.setExits(kitchenExits);
+		
+		Room[] bedroomExits = {rooms[0], rooms[1]};
+		bedroom.setExits(bedroomExits);
 		// need to set the other rooms here somehow.
 		//can probably just make one of these for every room and make sure I keep track of where you can back track
 		
+		
+		// i want to have better objects primarily drawers 
+		//also would be cool to add dnd checks to investigating certain things but thats for another time
+		
+			Appliances refridgerator = new Appliances("Fridge", "An old 1950s Steel Fridge", "Long Description");
+			Appliances minifridge = new Appliances("MiniFridge", "Tiny coke MiniFridge", "Always stocked with coke a cola and jack");
+			
+			
+			Furniture couch = new Furniture("Couch", "A nice suede couch", "fairly uncomfortable for no reason besides it fits the aestatic");
+			Furniture recliner = new Furniture("Recliner", "A rather comfy recliner", "A comfy elegent looking recliner that always has a minifridge stocked beside it");
+			Furniture bed = new Furniture("Bed", "Just a bed", "this is where I have all of my existential crisis");
+			
+			Electronics tv = new Electronics("Flat Screen TV", "has finger prints on the screen", "has a remote lying around somewhere");
+			
+			
+			kitchen.setItems(refridgerator);
+			livingRoom.setItems(minifridge, couch, recliner, tv);
+			bedroom.setItems(bed);
 		
 		//not sure why its not setting the starting room
 		this.startingRoom = livingRoom;

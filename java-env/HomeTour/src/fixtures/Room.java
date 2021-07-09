@@ -47,7 +47,15 @@ public class Room extends Fixture {
 		this.exits = exits;
 	}
 
-	
+	// Getter and Setter for Fixtures
+		public Fixture[] getItems() {
+			return items;
+		}
+		
+		
+		public void setItems(Fixture... items) {
+			this.items = items;
+		}
 	
 	
 }
