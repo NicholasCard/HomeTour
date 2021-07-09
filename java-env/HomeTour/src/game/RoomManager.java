@@ -72,10 +72,10 @@ public class RoomManager {
 		Room[] livingRoomExits = {kitchen, bedroom};
 		livingRoom.setExits(livingRoomExits);
 		
-		Room[] kitchenExits = {rooms[0], rooms[2]};
+		Room[] kitchenExits = {livingRoom, bedroom};
 		kitchen.setExits(kitchenExits);
 		
-		Room[] bedroomExits = {rooms[0], rooms[1]};
+		Room[] bedroomExits = {livingRoom, kitchen};
 		bedroom.setExits(bedroomExits);
 		// need to set the other rooms here somehow.
 		//can probably just make one of these for every room and make sure I keep track of where you can back track

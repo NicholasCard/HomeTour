@@ -67,7 +67,7 @@ public static void interactInput(Room room, String details) {
 	
 //for (Fixture interactable: room.getItems()) {
 		
-	for(int i = 0; i < room.getItems().length-1; i++) {
+	for(int i = 0; i < room.getItems().length; i++) {
 		
         System.out.println("These are the Items: " + room.getItems()[i].getName());
 	
@@ -90,28 +90,19 @@ public static void interactInput(Room room, String details) {
 public static void roomInput(Room room, String details, Player player) {
 	
 	
-    
-        // Creating ArrayList
-        ArrayList<String> roomList = new ArrayList<>();
- 
-        // adding elements of array
-        // to ArrayList
-        for (Room i : player.getCurrentRoom().getExits()) {
-            roomList.add(i.getName().toUpperCase());
- 
-            System.out.println("HEY THIS IS THE ROOM LIST BOI" + roomList);
-            
-            
-        // returning index of the element
-        int roomIndex = roomList.indexOf("KITCHEN");
-        System.out.println(roomIndex);
-        
-        System.out.println(roomManager.getRooms()[roomIndex]);
-        
-        player.setCurrentRoom(roomManager.getRooms()[roomIndex]);
-        collectInput(player);
-    }
+	for (int i = 0; i < player.getCurrentRoom().getExits().length; i++) {
+		 System.out.println("THIS IS THE ROOMINPUT BOY " + player.getCurrentRoom().getExits()[i].getName());
+		 
+		 
+		 System.out.println(i);
+		 player.setCurrentRoom(roomManager.getRooms()[0]);
+		 System.out.println(player.getCurrentRoom().getName());
+	}
+	
    
+   
+    //player.setCurrentRoom(roomManager.getRooms()[0]);
+    
 }
     
 	
