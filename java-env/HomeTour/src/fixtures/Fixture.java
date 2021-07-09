@@ -24,7 +24,7 @@ public abstract class Fixture {
 		
 		//do more research on why this works
 		//i do really want to analyze this project and make improvements to it 
-		//make time eaxh day to do that 
+		//make time each day to do that 
 		this.name = name;
 		this.shortDescription = shortDescription;
 		this.longDescription = longDescription;

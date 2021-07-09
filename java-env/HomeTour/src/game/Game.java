@@ -11,13 +11,33 @@ import java.util.ArrayList;
 public class Game {
 	
 	
-private static RoomManager roomManager = new RoomManager(3);
+private static RoomManager roomManager = new RoomManager(9);
 private static boolean running = true;
 	
 public static void main(String[] args) {
 	
 	
+	//this should be a function else where
+	//i can do that later when i want to fix this project up after being presented
+	System.out.println("Welcome to the Game! \n" + 
+			"Some simple instructions: \n" +
+			"You can type GO or MOVE and the room that are listed to move to that specific room\n"+
+			"You can't access all the rooms all at once so pay attention to whats closest to you\n"+
+			"You can type INTERACT to interact with the many objects that are in each room\n" +
+			"Objects can give you insight to what strange things are going on in this little house\n"+
+			"GoodLuck and lets get started");
+	
+	
+	System.out.println(":INTRO: \n" +
+						"After an office party and a little too much to drink you call an uber to get you home. \n"+
+						"On your way home there was a near head on collision with another driver but avoiding the other vehicle\n" +
+						"caused the driver to swerve into the woods where you are both knocked unconcious. \n" +
+						"After finally opening your eyes and looking up you realize you have ended up right in front\n"+
+						"of a dilapidated house in the middle of the woods");
+	
 	roomManager.init();
+	
+	
 	
 	//System.out.println("this is just calling the starting room " + roomManager.getStartingRoom().getName());
 	
@@ -34,14 +54,6 @@ public static void main(String[] args) {
 	printRoomExits(player);
 	
 	printInteractableObjects(player.getCurrentRoom());
-	
-	//player is currently not passing anything to the parse method 
-	//do i need to pass the current room and make an object out of that?
-	
-	//need to figure out how to let the printRoom know which room is the current room 
-	
-	//the player keeps track of the current room so I need a way so translate that 
-		
 	
 	parse(collectInput(player), player);
 	
@@ -72,11 +84,12 @@ public static void interactInput(Player player, Room room, String details) {
 		  if (details.equals(selection)) {
 			  System.out.println(room.getItems()[i].getLongDesc());
 			  //parse(collectInput(player), player);
-			  printRoom(player);
+			  
+			  /*printRoom(player);
 			  printRoomExits(player);
 				
-			  printInteractableObjects(player.getCurrentRoom());
-			 
+			  printInteractableObjects(player.getCurrentRoom());*/
+			 break;
 		  }
 		  else {
 			  
@@ -89,36 +102,38 @@ public static void interactInput(Player player, Room room, String details) {
 
 public static void roomInput(Room room, String details, Player player) {
 	
-for(int i = 0; i < roomManager.getRooms().length -1; i++) {
+for(int i = 0; i < roomManager.getRooms().length - 1; i++) {
 		
+	
+	//something is running through twice and i need to fix it 
 	
         String selection = roomManager.getRooms()[i].getName().toUpperCase();
        
         //need to have a check somewhere to make sure its actually a part of the exit rooms
 		  
-        System.out.println("this is the roomInput else if statement" + player.getCurrentRoom().getName().toUpperCase());
-        System.out.println("THIS IS THE DETAILS FOR THE ROOMINPUT " + details);
+       // System.out.println("this is the roomInput else if statement" + player.getCurrentRoom().getName().toUpperCase());
+        //System.out.println("THIS IS THE DETAILS FOR THE ROOMINPUT " + details);
         
 		  if (details.equals(selection)) {
 			  
-			  System.out.println("IM THE ONE IN THE ROOMINPUT THAT IS IN THE IF" + roomManager.getRooms()[i].getLongDesc());
+			  //System.out.println("IM THE ONE IN THE ROOMINPUT THAT IS IN THE IF" + roomManager.getRooms()[i].getLongDesc());
 			  player.setCurrentRoom(roomManager.getRooms()[i]);
+			  /*
 			  printRoom(player);
 			  printRoomExits(player);
-			  printInteractableObjects(player.getCurrentRoom());
+			  printInteractableObjects(player.getCurrentRoom());*/
+			  break;
 			  
 		  } else if(details.equals(player.getCurrentRoom().getName().toUpperCase())){
 			  System.out.println("Youre Already in this room. Try interacting or selecting another room");
 			  
-			  printRoom(player);
-			  printRoomExits(player);
-			  printInteractableObjects(player.getCurrentRoom());
-			  
+			  break;
 			  
 		  }
 		  else {
-			  System.out.println("hey i didnt work in the room input");
-		  
+			  System.out.println("hey i didnt match in the room input");
+			  //System.out.println(details);
+			  //System.out.println(selection);
 		  }
 		  
 	}
@@ -139,7 +154,8 @@ public static void printRoomExits(Player player) {
 	private static void printRoom(Player player) {
 		
 		System.out.println(player.getCurrentRoom().getName());
-		
+		System.out.println(player.getCurrentRoom().getShortDesc());
+		System.out.println(player.getCurrentRoom().getLongDesc());
 	}
 	
 	private static String[] collectInput(Player player) {
@@ -163,8 +179,7 @@ public static void printRoomExits(Player player) {
 		
 		String[] commands = command.split(" ");
 
-		for (String c : commands)
-		  //System.out.println(c);
+		
 		
 		System.out.println("you typed " + command);
 		//this needs to be a String[] but just to test
