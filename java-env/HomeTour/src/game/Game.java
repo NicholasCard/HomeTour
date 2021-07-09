@@ -58,32 +58,25 @@ public static void printInteractableObjects(Room room) {
 		
         System.out.println("These are the Items you can interact with: " + interactable.getName());
         
-        //need to figure out how to get a list of the interactables in a room as data so i can compare 
-        //could also translate that to the getRooms() method to make a better method for that 
-        //I just need to be able to select one for now until I fine tune it
-        //String[] fixtures = interactable.getName();
      }
 }
 
 public static void interactInput(Player player, Room room, String details) {
 	
-	
-//for (Fixture interactable: room.getItems()) {
 		
 	for(int i = 0; i < room.getItems().length + 1; i++) {
 		
-        //ystem.out.println("Interactable Items " + room.getItems()[i].getName());
 	
         String selection = room.getItems()[i].getName().toUpperCase();
 		  
 		  if (details.equals(selection)) {
 			  System.out.println(room.getItems()[i].getLongDesc());
 			  //parse(collectInput(player), player);
-			  //printRoom(player);
-			  //printRoomExits(player);
+			  printRoom(player);
+			  printRoomExits(player);
 				
-			  //printInteractableObjects(player.getCurrentRoom());
-			  break;
+			  printInteractableObjects(player.getCurrentRoom());
+			 
 		  }
 		  else {
 			  
@@ -96,30 +89,35 @@ public static void interactInput(Player player, Room room, String details) {
 
 public static void roomInput(Room room, String details, Player player) {
 	
-	
-	
-for(int i = 0; i < roomManager.getRooms().length + 1; i++) {
+for(int i = 0; i < roomManager.getRooms().length -1; i++) {
 		
 	
         String selection = roomManager.getRooms()[i].getName().toUpperCase();
        
         //need to have a check somewhere to make sure its actually a part of the exit rooms
 		  
+        System.out.println("this is the roomInput else if statement" + player.getCurrentRoom().getName().toUpperCase());
+        System.out.println("THIS IS THE DETAILS FOR THE ROOMINPUT " + details);
+        
 		  if (details.equals(selection)) {
 			  
-			  System.out.println(roomManager.getRooms()[i].getLongDesc());
+			  System.out.println("IM THE ONE IN THE ROOMINPUT THAT IS IN THE IF" + roomManager.getRooms()[i].getLongDesc());
 			  player.setCurrentRoom(roomManager.getRooms()[i]);
-			  collectInput(player);
-			  break;
+			  printRoom(player);
+			  printRoomExits(player);
+			  printInteractableObjects(player.getCurrentRoom());
+			  
 		  } else if(details.equals(player.getCurrentRoom().getName().toUpperCase())){
 			  System.out.println("Youre Already in this room. Try interacting or selecting another room");
 			  
-			  //collectInput(player);
+			  printRoom(player);
+			  printRoomExits(player);
+			  printInteractableObjects(player.getCurrentRoom());
 			  
 			  
 		  }
 		  else {
-			  i = i;
+			  System.out.println("hey i didnt work in the room input");
 		  
 		  }
 		  
@@ -138,23 +136,13 @@ public static void printRoomExits(Player player) {
 	
 }
 
-
 	private static void printRoom(Player player) {
-		//method that will print the prompt to the console for the players 
-		//current room
-		
-		
-		// i have to add SYSO for each individual part of the object because println doesnt just print the whole object 
 		
 		System.out.println(player.getCurrentRoom().getName());
 		
-		//shit might have over written some stuff
-		
-		
 	}
 	
-	private static String[]  collectInput(Player player) {
-		
+	private static String[] collectInput(Player player) {
 		
 		Scanner scanner = new Scanner(System.in);  
 		
@@ -176,7 +164,7 @@ public static void printRoomExits(Player player) {
 		String[] commands = command.split(" ");
 
 		for (String c : commands)
-		  System.out.println(c);
+		  //System.out.println(c);
 		
 		System.out.println("you typed " + command);
 		//this needs to be a String[] but just to test
@@ -204,8 +192,6 @@ public static void printRoomExits(Player player) {
 
 			if (action == "GO" | action == "MOVE") {
 				
-				
-				
 				roomInput(player.getCurrentRoom(), details, player);
 				
 				/*printRoomExits(player);
@@ -219,7 +205,6 @@ public static void printRoomExits(Player player) {
 				//part of my attempt to start adding interactivity
 				//idea so far is to come up with an algorithm that just loops through and checks each time if the strings match
 				//doesnt need to be crazy efficient itll loop through like 5 items 
-				
 								
 				interactInput(player, player.getCurrentRoom(), details);
 				
@@ -230,14 +215,6 @@ public static void printRoomExits(Player player) {
 				System.exit(0);
 			}
 			
-			
-			//System.out.println(player.getCurrentRoom().getExits()[1].getName());
-			
-			
-			//this needs to be its own method
-			//pretty sure i moved these but they are going to stay here
-			
-			//player.setCurrentRoom(roomManager.getRooms()[1]);
 			
 			
 		}
