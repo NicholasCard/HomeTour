@@ -1,26 +1,17 @@
 package game;
 
 import java.util.Scanner;
-
+import java.lang.*;
 import fixtures.Fixture;
 import fixtures.Room;
 import game.Player;
 import game.RoomManager;
+import java.util.ArrayList;
 
 public class Game {
 	
 	
-
-	/*
-	 * This class stores the main method and is the ONLY class with it
-	 * This is where the game loop goes and will 
-	 * 
-	 * -Display the prompt
-	 * -collect input
-	 * -parse the input
-	 */
-	
-	private static RoomManager roomManager = new RoomManager(3);
+private static RoomManager roomManager = new RoomManager(3);
 	
 	
 public static void main(String[] args) {
@@ -28,12 +19,9 @@ public static void main(String[] args) {
 	
 	roomManager.init();
 	
-	
-	
 	System.out.println("this is just calling the starting room " + roomManager.getStartingRoom().getName());
 	
 	Player player = new Player();
-	
 	
 	
 	player.setCurrentRoom(roomManager.getStartingRoom());
@@ -53,7 +41,7 @@ public static void main(String[] args) {
 	//the player keeps track of the current room so I need a way so translate that 
 		
 	
-	parse(collectInput(), player);
+	parse(collectInput(player), player);
 	}
 
 /*
@@ -74,19 +62,65 @@ public static void printInteractableObjects(Room room) {
      }
 }
 
+public static void interactInput(Room room, String details) {
+	
+	
+//for (Fixture interactable: room.getItems()) {
+		
+	for(int i = 0; i < room.getItems().length-1; i++) {
+		
+        System.out.println("These are the Items: " + room.getItems()[i].getName());
+	
+        String selection = room.getItems()[i].getName().toUpperCase();
+		  
+		  if (details.equals(selection)) {
+			  System.out.println(room.getItems()[i].getLongDesc());
+			  break;
+		  }
+		  else {
+			  System.out.println("couldnt find it");
+			  i++;
+			  
+		  }
+		  
+		  
+	}
+}
+
+public static void roomInput(Room room, String details, Player player) {
+	
+	
+    
+        // Creating ArrayList
+        ArrayList<String> roomList = new ArrayList<>();
+ 
+        // adding elements of array
+        // to ArrayList
+        for (Room i : player.getCurrentRoom().getExits()) {
+            roomList.add(i.getName().toUpperCase());
+ 
+            System.out.println("HEY THIS IS THE ROOM LIST BOI" + roomList);
+            
+            
+        // returning index of the element
+        int roomIndex = roomList.indexOf("KITCHEN");
+        System.out.println(roomIndex);
+        
+        System.out.println(roomManager.getRooms()[roomIndex]);
+        
+        player.setCurrentRoom(roomManager.getRooms()[roomIndex]);
+        collectInput(player);
+    }
+   
+}
+    
+	
+		
+	
+
+
 
 public static void printRoomExits(Player player) {
-	// TODO: Implement Method
-	//just threw around the arbitrarily word around and doesnt give much description
-	
-	
-	
-	
-	/*
-	 * this method needs to use the getExits method to grab the exits from the room they are currently in
-	 * 
-	 * getExits is in the Room class so it should be associated with the room
-	 */
 	
 	for (Room exits: player.getCurrentRoom().getExits()) {
 		
@@ -114,22 +148,15 @@ public static void printRoomExits(Player player) {
 		
 	}
 	
-	private static String[]  collectInput() {
-		/*method that uses a scanner like object to collect console input 
-		 * from the player and then divides the input into multiple parts
-		 * -An Action
-		 * -The target of the action
-		 * for example Go East is the command
-		 * -East is the target
-		 * -Go is the command
-		 */
+	private static String[]  collectInput(Player player) {
 		
-		//does this go in the collectInput method or the main method?
+		
 		Scanner scanner = new Scanner(System.in);  
 		
+		printRoom(player);
+		printRoomExits(player);
+		printInteractableObjects(player.getCurrentRoom());
 		System.out.println("please enter a command");
-		
-		
 		
 		
 		//need to implement a method that prints out the exits for that particular room 
@@ -172,18 +199,36 @@ public static void printRoomExits(Player player) {
 				// What to do when the 'action' specified is to move
 				
 				//maybe implement a case here 
-				switch(details) {
-				case "LEFT":
-					System.out.println("You went Left");
+				
+				//can do the same thing 
+				
+				
+				//trying switch case system but it doesnt seem to be working the way it needs to 
+				/*switch(details) {
+				case "up":
+					player.setCurrentRoom(roomManager.getRooms()[0]);
+					collectInput(player);
+					break;
+					
+				case "down":
 					player.setCurrentRoom(roomManager.getRooms()[1]);
-					System.out.println(player.getCurrentRoom().getName());
-					break;
-				case "RIGHT":
-					System.out.println("You went Right");
+					collectInput(player);
+					
+					
+				case "left":
 					player.setCurrentRoom(roomManager.getRooms()[2]);
-					System.out.println(player.getCurrentRoom().getName());
+					collectInput(player);
 					break;
-				}
+					
+				case "right":
+					player.setCurrentRoom(roomManager.getRooms()[3]);
+					collectInput(player);
+					break;
+				}*/
+				
+				roomInput(player.getCurrentRoom(), details, player);
+				
+				
 				
 			} else if (action == "INTERACT") {
 				// What to do when the 'action' specified is to interact
@@ -194,32 +239,22 @@ public static void printRoomExits(Player player) {
 				//doesnt need to be crazy efficient itll loop through like 5 items 
 				
 				//String[] stuff = printInteractableObjects(player.getCurrentRoom());
-				switch(details) {
-				case "FRIDGE":
-					//this should be stored in the interactables like description of what action is taken when selecting it
-					//could get more specific with what actions you can take but thats for later
-					System.out.println("You open the fridge and see that there are some leftovers that might be a little too old");
-					break;
-				}
+				
+				interactInput(player.getCurrentRoom(), details );
+				collectInput(player);
+				
 			} else if (action == "QUIT") {
 				//just a substitute for now 
 				System.exit(0);
 			}
 			
 			
-			
-			//the stuff below needs to be refactored somewhere else 
-			
-			//still have to figure out how to make the player an object that can change the starting room
-			System.out.println("hey this is the parse method");
-			
-			
-			
-			
 			//System.out.println(player.getCurrentRoom().getExits()[1].getName());
 			
 			
 			//this needs to be its own method
+			//pretty sure i moved these but they are going to stay here
+			
 			//player.setCurrentRoom(roomManager.getRooms()[1]);
 			
 			

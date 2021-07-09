@@ -37,7 +37,7 @@ public class RoomManager {
 		
 		
 		Room livingRoom = new Room(
-				"The Living Room",
+				"Living Room",
 				"A cozy little room for relaxing",
 				"The long description that ill put here eventually" + "\n"
 				);
@@ -45,7 +45,7 @@ public class RoomManager {
 		this.rooms[0] = livingRoom;
 		
 		Room kitchen = new Room(
-				"The Kitchen",
+				"Kitchen",
 				"room for cooking",
 				"The kitchen man what more can you ask for" + "\n"
 				);
@@ -53,7 +53,7 @@ public class RoomManager {
 		this.rooms[1] = kitchen;
 		
 		Room bedroom = new Room(
-				"The Bedroom",
+				"Bedroom",
 				"this is where i sleep",
 				"this is the bedroom where i sleep and have existential crisis"
 				);
@@ -69,7 +69,7 @@ public class RoomManager {
 		
 		// the nulls should be replaced with directions or what room is where but I need to define this for each room
 		
-		Room[] livingRoomExits = {rooms[1], rooms[2]};
+		Room[] livingRoomExits = {kitchen, bedroom};
 		livingRoom.setExits(livingRoomExits);
 		
 		Room[] kitchenExits = {rooms[0], rooms[2]};

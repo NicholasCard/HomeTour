@@ -7,6 +7,7 @@ public class Appliances extends Fixture implements Interactable{
 		//not sure what else to add here except that interactable is just always a thing? 
 		//no appliances should be not interactable?
 		
+		//probably should have made another package for this but thatll be for polish
 	}
 
 	public void interact() {
